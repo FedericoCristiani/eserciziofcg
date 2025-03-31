@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/esercizio
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_DATABASE-PLATFORM: org.hibernate.dialect.MariaDBDialect
+    networks:
+      - mynetwork
+
+  mariadb:
+    image: mariadb:11
+    restart: always
+    environment:
+      MARIADB_DATABASE: esercizio
+      MARIADB_USER: user
+      MARIADB_PASSWORD: root
+      MARIADB_ROOT_PASSWORD: root
+    ports:
+      - "33306:3306"
+    tmpfs:
+      - /var/lib/mysql  # Usa una tmpfs (memoria volatile) invece di un volume persistente
+    networks:
+      - mynetwork
+
+
+#volumes:
+#  mariadb_data:
+networks:
+  mynetwork:
