@@ -5,10 +5,12 @@ import it.fede.eserciziofcg.models.entities.UserEntity;
 import it.fede.eserciziofcg.models.mappers.UserEntityDtoMapper;
 import it.fede.eserciziofcg.repositories.UserRepository;
 import it.fede.eserciziofcg.repositories.UserSpecifications;
+import it.fede.eserciziofcg.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,10 +23,12 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final UserEntityDtoMapper userEntityDtoMapper;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository, UserEntityDtoMapper userEntityDtoMapper) {
+    public UserController(UserRepository userRepository, UserEntityDtoMapper userEntityDtoMapper, UserService userService) {
         this.userRepository = userRepository;
         this.userEntityDtoMapper = userEntityDtoMapper;
+        this.userService = userService;
     }
 
     @GetMapping("/{id}")
@@ -87,6 +91,13 @@ public class UserController {
 
     }
 
+    @PostMapping("/bulkinsert")
+    public ResponseEntity addBulk(@RequestParam("file") MultipartFile file) {
+
+        userService.bulkInsertUsers(file );
+
+        return ResponseEntity.ok("File elaborato correttamente.");
+    }
 
 
 }
