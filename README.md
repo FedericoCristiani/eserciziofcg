@@ -35,8 +35,12 @@ I dati scambiati sono in formato JSON, ad esempio:
 | **PUT** | `/api/user/{id}` | Aggiorna un utente specifico |
 | **DELETE** | `/api/user/{id}` | Cancella un utente specifico |
 | **GET** | `/api/user/search?firstname=&lastname=` | Ricerca utenti per nome e/o cognome |
+| **POST** | `/api/user/bulkinsert` | Inserimento massivo utenti tramite csv |
 
 I parametri `firstname` e `lastname` in `/api/user/search` sono opzionali e possono essere usati singolarmente o insieme.
+
+L'endpoint per l’inserimento massivo si aspetta un CSV con le colonne FirstName, LastName, Email, Address e restituisce errore se le colonne non corrispondono
+
 
 ---
 
@@ -48,6 +52,7 @@ I parametri `firstname` e `lastname` in `/api/user/search` sono opzionali e poss
 - **Jakarta Validation** per la validazione dei DTO e gestione degli errori `400 Bad Request`.
 - Gli errori di risorse non trovate restituiscono un errore `404 Not Found` direttamente dal controller.
 - Un **ApplicationRunner** popola il database con un record di test all’avvio.
+- L'inserimento massivo tramite CSV è stato sviluppato con il pacchetto Apache-csv
 
 > **Nota:** Gli endpoint `GET /api/user/` e `GET /api/user/search` restituiscono la lista dei risultati con due modalità diverse: una usando uno **stream** per la mappatura degli oggetti e l’altra con un mapper lista-a-lista (`entity => dto`).
 
