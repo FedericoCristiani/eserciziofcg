@@ -1,7 +1,6 @@
 package it.fede.eserciziofcg.repositories;
 
 import it.fede.eserciziofcg.models.entities.UserEntity;
-import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

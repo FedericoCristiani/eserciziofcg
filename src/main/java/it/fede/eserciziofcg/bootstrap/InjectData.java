@@ -15,10 +15,9 @@ public class InjectData implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args)  {
 
         UserEntity user = new UserEntity();
-       // user.setId(1);
         user.setFirstname("Federico");
         user.setLastname("Federico");
         user.setEmail("federico.cristiani@gmail.com");
